@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"        
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.OrderDao">
+	
+	
+	<!-- 添加Order -->
+	<insert id="saveOrderOne" parameterType="EasybuyOrder" useGeneratedKeys="true" keyProperty="id">
+	INSERT INTO easybuy_order(userId,loginName,userAddress,createTime,cost,`status`,`type`,serialNumber,cancel) VALUES(#{userId},#{loginName},#{userAddress},NOW(),#{cost},1,1,#{serialNumber},0)
+	</insert>
+
+	
+	
+	<!-- order查询 -->
+	<select id="saveOrderTwo" resultType="int">
+		select max(id) from easybuy_order
+	</select>
+	
+	<!--  -->
+	
+<!-- 查询订单信息 -->
+<select id="getEasybuyOrderDetail" resultType="DetailProduct" parameterType="List">
+	SELECT b.orderId,a.id,a.name,a.fileName,b.quantity,b.cost FROM easybuy_product AS a ,easybuy_order_detail AS b WHERE b.productId=a.id
+</select>
+</mapper>

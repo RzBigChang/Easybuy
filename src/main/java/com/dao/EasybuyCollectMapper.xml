@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"        
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.EasybuyCollectDao">
+	<resultMap type="EasybuyCollect" id="Collect">
+		<id property="id" column="id"/>
+		<result property="userId" column="userId"/>
+		<result property="productId" column="productId"/>
+		<result property="productNum" column="productNum"/>
+		<result property="type" column="type"/>
+	</resultMap>
+	<insert id="addCollect" parameterType="Integer">
+		INSERT into easybuy_collect(userId,productId,productNum,type) VALUES (#{userId},#{productId},#{productNum},#{type})
+	</insert>
+	<select id="select" resultMap="Collect">
+		SELECT * FROM easybuy_collect
+	</select>
+	<select id="selectId" resultMap="Collect">
+		SELECT * FROM  easybuy_collect WHERE userId=#{userId} AND productId=#{productId}
+	</select>
+	<select id="selectByUserId" resultMap="Collect">
+		SELECT * FROM easybuy_collect WHERE userId=#{userId}
+	</select>
+	<delete id="delCollect" parameterType="Integer">
+		DELETE FROM easybuy_collect WHERE id=#{id}
+	</delete>
+</mapper>

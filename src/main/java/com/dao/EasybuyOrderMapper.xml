@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"        
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.EasybuyOrderDao">
+
+
+	<select id="findEasybuyOrderList0" resultType="EasybuyOrder">
+		Select * from easybuy_order ORDER BY createTime DESC
+	</select>
+	
+	
+	<select id="findEasybuyOrderList" parameterType="List" resultType="EasybuyOrder">
+		Select * from easybuy_order where userId=#{userId} ORDER BY createTime DESC
+	</select>
+	
+	<!-- 获得总记录数 -->
+	<select id="getTotalCount" parameterType="int" resultType="int">
+		select COUNT(1) from  easybuy_order
+	</select>
+	<!-- 取消订单 -->
+	<update id="cancel">
+		update easybuy_order
+		<trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+			<if test="cancel!=''">cancel=#{cancel},</if>
+			<if test="message!=null">message=#{message},</if>
+		</trim>
+	</update>
+	<!-- 根据id查询订单信息 -->
+	<select id="findUserByIdOrder" resultType="Integer" >
+		select COUNT(1) from easybuy_order 
+		<where>
+		<if test="id !=null">
+		id=#{id}
+		</if>
+		</where>
+	</select>
+</mapper>

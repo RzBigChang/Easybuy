@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"        
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ProductCategoryDao">
+
+	<!-- 查询商品分类信息 -->
+		<select id="getProductCategoryList" resultType="EasybuyProductCategory">
+			SELECT * FROM easybuy_product_category WHERE type=#{typeId} ORDER BY name DESC
+		</select>
+	<!-- 根据id查询商品信息 -->
+		<select id="getProductCategoryById" resultType="EasybuyProductCategory">
+			SELECT * FROM easybuy_product_category WHERE id=#{id}
+		</select>
+	<!-- 查询所有商品信息！ -->
+		<select id="findEasybuyProductCategoryAll" resultType="EasybuyProductCategory">
+			select epc1.*,epc2.name AS parentName from easybuy_product_category epc1 LEFT JOIN easybuy_product_category epc2 ON epc1.parentId=epc2.id LIMIT #{currentPage},#{rowPerPage}
+		</select>
+	<!-- 获取总记录数！ -->
+		<select id="getTotalCount" resultType="int">
+			select count(1) from easybuy_product_category
+		</select>
+	<!-- 根据Id删除商品信息！ -->
+		<delete id="delEasybuyProductCategoryById" parameterType="int">
+			DELETE FROM easybuy_product_category WHERE id = #{id}
+		</delete>
+	<!-- 一级分类！ -->
+		<select id="findProductCategoryListOne" resultType="EasybuyProductCategory">
+			SELECT * FROM easybuy_product_category WHERE type=1
+		</select>
+	<!-- 二级分类 -->
+		<select id="findProductCategoryListTwo" resultType="EasybuyProductCategory">
+			SELECT * FROM easybuy_product_category WHERE type=2
+		</select>
+	<!-- 三级分类！ -->
+		<select id="findProductCategoryListThree" resultType="EasybuyProductCategory">
+			SELECT * FROM easybuy_product_category WHERE type=3
+		</select>
+	<!-- 根据父分类查询商品分类信息 -->
+		<select id="getProductCategoryListByparentId" resultType="EasybuyProductCategory">
+			SELECT* FROM easybuy_product_category  WHERE type=#{typeId} AND parentId=#{parentId}
+		</select>
+	<!-- 新增/修改商品分类 -->
+		<insert id="insertEasybuyProductCategory">
+			INSERT  INTO easybuy_product_category(name,parentId,type) VALUES(#{name},#{parentId},#{type})
+		</insert>
+		<update id="update">
+			UPDATE easybuy_product_category SET name = #{name},parentId = #{parentId},type = #{type} WHERE id=#{id}
+		</update>
+	<!-- 根据删除的商品分类父ID编号，去查询一遍外键表中是否有数据！ -->
+		<select id="findParentId" resultType="int">
+			SELECT COUNT(1) FROM easybuy_product_category WHERE parentId = #{parentId}
+		</select>
+	<!-- 查询分类是否存在商品商品 -->
+	<resultMap type="EasybuyProductCategory" id="ProductById">
+	<id property="id" column="id"/>
+	<result property="name" column="name"/>
+	<result property="parentId" column="parentId"/>
+	<result property="type" column="type"/>
+	</resultMap>
+		<select id="getProductById" resultMap="ProductById">
+			SELECT COUNT(1) FROM easybuy_product 
+			<where>
+			<if test="type!=null">
+			type=#{type}
+			</if>
+			</where>
+		</select>
+</mapper>

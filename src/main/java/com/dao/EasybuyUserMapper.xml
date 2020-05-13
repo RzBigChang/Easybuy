@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"        
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.EasybuyUserDao">
+	<resultMap type="EasybuyUser" id="findEasybuyUserInfo">
+		<id property="id" column="id"/>
+		<result property="userName" column="userName"/>
+		<result property="proName" column="proName"/>
+		<result property="loginName" column="loginName"/>
+		<result property="password" column="password"/>
+		<result property="sex" column="sex"/>
+		<result property="identityCode" column="identityCode"/>
+		<result property="email" column="email"/>
+		<result property="mobile" column="mobile"/>
+		<result property="type" column="type"/>
+		<result property="codeUrl" column="codeUrl"/>
+		<result property="activated" column="activated"/>
+	</resultMap>
+	
+	<resultMap type="EasybuyUser" id="findEasybuyUserAll">
+		<id property="id" column="id"/>
+		<result property="userName" column="userName"/>
+		<result property="proName" column="proName"/>
+		<result property="loginName" column="loginName"/>
+		<result property="password" column="password"/>
+		<result property="sex" column="sex"/>
+		<result property="identityCode" column="identityCode"/>
+		<result property="email" column="email"/>
+		<result property="mobile" column="mobile"/>
+		<result property="type" column="type"/>
+		<result property="codeUrl" column="codeUrl"/>
+		<result property="activated" column="activated"/>
+	</resultMap>
+	<!-- 根据用户名和密码查询对应信息！ -->
+	<select id="findEasybuyUserInfo" resultMap="findEasybuyUserInfo">
+		select * from easybuy_user where loginName=#{loginName} and password=#{password}
+	</select>
+	<!-- 根据用户信息注册! -->
+	<insert id="addRegisterInfo">
+		insert into easybuy_user(userName,loginName,password,sex,identityCode,email,mobile,type,codeUrl,activated)values(#{userName},#{loginName},#{password},#{sex},#{identityCode},#{email},#{mobile},#{type},#{codeUrl},#{activated})
+	</insert>
+	
+	<!-- 根据id查询 -->
+	<select id="findEasybuyUserById" resultMap="findEasybuyUserAll">
+		Select * from easybuy_user where id=#{id};
+	</select>
+	<!-- 查询所有用户 -->
+	<select id="findEasybuyUserAll" resultType="EasybuyUser">
+		Select * from easybuy_user limit #{currentPage},#{rowPerPage}
+	</select>
+	<!-- 删除 -->
+	<delete id="delEasybuyUserById">
+		delete	from easybuy_user where id=#{id};
+	</delete>
+	<!-- 查询状态码 -->
+	<select id="SelectActivated" resultType="EasybuyUser">
+		select * from easybuy_user where activated=#{activated}
+	</select>
+	<!-- 修改 -->
+	<update id="modifyEasybuyUserById" parameterType="EasybuyUser">
+		Update	easybuy_user 
+		<trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+			<if test="userName!=null and userName!=''">userName=#{userName},</if>
+			<if test="loginName!=null and loginName!=''">loginName=#{loginName},</if>
+			<if test="password!=null and password!=''">password=#{password},</if>
+			<if test="sex!=0">sex=#{sex},</if>
+			<if test="identityCode!=null and identityCode!=''">identityCode=#{identityCode},</if>
+			<if test="email!=null and email!=''">email=#{email},</if>
+			<if test="mobile!=null and mobile!=''">mobile=#{mobile},</if>
+			<if test="type!=null">type=#{type},</if>
+		</trim>
+	</update>
+	<!-- 查询用户总记录数 -->
+	<select id="getTotalCount" resultType="int" parameterType="int">
+		Select COUNT(1) from easybuy_user
+	</select>
+
+	<!-- 查询激活码返回用户名 -->
+	<select id="SelectId" resultType="EasybuyUser">
+		select * from easybuy_user where codeUrl=#{codeUrl}
+	</select>
+	<!-- 查找到激活码后，更新数据库的账户状态 -->
+	<update id="XiuGaiDome" parameterType="int">
+		update easybuy_user
+		<trim prefix="set" suffixOverrides="," suffix="where id=#{id}">
+			<if test="activated!=''">activated=#{activated},</if>
+		</trim>
+	</update>
+	<!-- 根据用户名and密码查询账户状态 -->
+	<select id="SelectNameandPwd" resultMap="findEasybuyUserInfo">
+		select * from easybuy_user where loginName=#{loginName} and password=#{password}
+	</select>
+	<!-- 查询是否有相同的用户名 -->
+	<select id="findLoginNameByName">
+		
+	</select>
+</mapper>

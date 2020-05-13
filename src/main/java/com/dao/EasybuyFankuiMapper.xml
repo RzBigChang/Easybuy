@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"        
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.EasybuyFankuiDao">
+	<resultMap type="EasybuyFankui" id="FankuiList">
+		<result property="faxie" column="faxie"></result>
+		<result property="manyidu" column="manyidu"></result>
+		<result property="name" column="name"></result>
+		<result property="ipone" column="ipone"></result>
+	</resultMap>
+	<insert id="saveFankui" parameterType="Integer">
+		INSERT into easybuy_fankui(faxie,manyidu,name,ipone) 
+		VALUES(#{faxie},#{manyidu},#{name},#{ipone})
+	</insert>
+	<select id="FankuiList" resultMap="FankuiList">
+		select * from easybuy_fankui limit #{currentPage},#{rowPerPage}
+	</select>
+	<select id="getTotalCount" resultType="int">
+		select count(1) from easybuy_fankui
+	</select>
+</mapper>

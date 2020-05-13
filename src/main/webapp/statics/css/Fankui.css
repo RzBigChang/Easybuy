@@ -1,0 +1,225 @@
+@charset "UTF-8";
+.question-wrapper {
+	width: 100%;
+	margin: 0 auto 10px auto;
+	border:1px solid #cce8ff;
+	padding:1px;
+	background-color: #FFFFFF;
+}
+.welcome-table {
+  margin: 0 auto;
+  width: 100%;
+  padding-top:1px;
+  font-family:inherit;
+}
+td.survey-description {
+  border-bottom: 2px solid #e33b3d;
+  color: #666;
+  text-align: center;
+  height: 43px;
+  overflow: hidden;
+  background: url(statics/images/login.png) no-repeat 0 -10px;
+  background-size: 165px auto;
+}
+td.survey-description h1{
+  text-align:left;
+  margin-left:190px;
+  font-size:22px;
+  font-family:"Microsoft Yahei";
+  font-weight:normal;
+  padding-bottom:10px;
+}
+table {
+    border-spacing: 0;
+}
+tr {
+    display: table-row;
+    vertical-align: inherit;
+    border-color: inherit;
+}
+tbody {
+    display: table-row-group;
+    vertical-align: middle;
+    border-color: inherit;
+}
+td.survey-welcome {
+    text-align: left;
+    padding: 10px 35px 15px 25px;
+}
+span.surveywelcome {
+    line-height: 25px;
+    text-align: left;
+    
+}
+.x-questions {
+    color: #333333;
+    display: none;
+}
+td.questiontext {
+    font-family: verdana;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #EEF6FF;
+    text-align: left;
+    padding: 6px 10px;
+}
+.asterisk {
+    color: red;
+    font-size: 9px;
+    font-family: verdana;
+    margin-right: 5px;
+}
+span.qnumcode {
+	
+}
+span.questionhelp {
+    font-size: 10px;
+    font-style: italic;
+}
+td.survey-question-help {
+    font-size: 10px;
+    background-color: #FFFDEE;
+    padding-left: 1em;
+    line-height: 24px;
+    color: #999999;
+    text-align: left;
+}
+td.answer {
+    padding: 11px 24px 16px 37px;
+    text-align: left;
+}
+p.question {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.text-long textarea, 
+.text-huge textarea, .text-short textarea {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+.asterisk {
+    color: red;
+    font-size: 9px;
+    font-family: verdana;
+    margin-right: 5px;
+}
+.choice-5-pt-radio .answer ul, .list-radio-flexible .answer ul, .list-radio .answer ul, .list-with-comment .answer ul, .multiple-opt .answer ul, .multiple-opt-comments .answer ul, .multiple-short-txt .answer ul, .numeric-multi .answer ul, .yes-no .answer ul, .gender .answer ul {
+    margin-left: 0%;
+    padding-left: 0%;
+}
+.choice-5-pt-radio .answer li, .list-radio-flexible .answer li, .list-radio .answer li, .list-with-comment .answer li, .multiple-opt .answer li, .multiple-opt-comments .answer li, .multiple-short-txt .answer li, .numeric-multi .answer li, .yes-no .answer li, .gender .answer li {
+    list-style-type: none;
+    text-align: left;
+    margin: 0% 0% 0.5em 0.5em;
+}
+.list-radio .answer li input {
+    vertical-align: top !important;
+    margin-top: 2px;
+}
+li{
+	list-style:none
+}
+table.group {
+    width: 100%;
+    margin: 0 0 2px 0;
+    border: 0 none;
+    border-collapse: collapse;
+    background-color: #fff;
+}
+.left {
+    text-align: left;
+}
+.group-name {
+    font-size: 16px;
+    font-family: inherit;
+    font-weight: bold;
+}
+td.survey-question-help {
+    font-size: 10px;
+    background-color: #FFFDEE;
+    padding-left: 1em;
+    line-height: 24px;
+    color: #999999;
+    text-align: left;
+}
+td.answer li label, td.answer li input {
+    vertical-align: middle;
+}
+.navigator-table {
+    width: 100%;
+    margin: 0;
+    padding: 1px;
+}
+.save-all {
+    text-align: left;
+    width: 0%;
+    background-color: #e2f3fd;
+    display: none;
+}
+.ui-button-text-only .ui-button-text {
+    padding: .4em 1em;
+}
+.submit-buttons {
+    text-align: center;
+    width: 100%;
+    background-color: #EEF6FF;
+}
+.ui-button {
+    display: inline-block;
+    position: relative;
+    padding: 0;
+    margin-right: .1em;
+    text-decoration: none !important;
+    cursor: pointer;
+    text-align: center;
+    zoom: 1;
+    overflow: visible;
+}
+td {
+    display: table-cell;
+    vertical-align: inherit;
+}
+table {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-color: grey;
+}
+.ui-button .ui-button-text {
+    display: block;
+    line-height: 1.4;
+}
+.submit-buttons {
+    text-align: center;
+    width: 100%;
+    background-color: #EEF6FF;
+}
+input[type="hidden" i] {
+    display: none;
+    -webkit-appearance: initial;
+    background-color: initial;
+    cursor: default;
+    padding: initial;
+    border: initial;
+}
+.ui-button {
+    display: inline-block;
+    position: relative;
+    padding: 0;
+    margin-right: .1em;
+    text-decoration: none !important;
+    cursor: pointer;
+    text-align: center;
+    zoom: 1;
+    overflow: visible;
+}
+button{
+border-style:solid;
+border-width:1px;
+border-color:#388BFF;
+/*border:1px;*//*不要设置border*/
+}
+ body{  
+   text-align:center;  
+ } 

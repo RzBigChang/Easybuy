@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"        
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.OrderDetailDao">
+
+	<!-- 提交订单 -->
+	<insert id="saveOrderDetail">
+		insert into easybuy_order_detail(orderId,productId,quantity,cost) value(#{orderId},#{productId},#{quantity},#{cost})
+	</insert>
+	
+	<!-- 提交订单saveOrderDetailOne -->
+	<insert id="saveOrderDetailOne" useGeneratedKeys="true" keyProperty="id" parameterType="EasybuyOrderDetail">
+		insert into easybuy_order_detail(orderId,productId,quantity,cost)VALUES(#{orderId},#{productId},#{quantity},#{cost})
+	</insert>
+	
+	<!-- saveOrderDetailTwo -->
+	<select id="saveOrderDetailTwo" resultType="int">
+		select max(id) from easybuy_order_detail
+	</select>
+	
+</mapper>

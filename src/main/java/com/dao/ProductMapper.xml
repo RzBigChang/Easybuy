@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"        
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dao.ProductDao">
+
+	<!-- 主界面查询全部商品 -->
+	<select id="getEasybuyProductList" resultType="EasybuyProduct">
+		SELECT id,name,description,price,stock,categoryLevel1,categoryLevel2,categoryLevel3,fileName,isDelete FROM easybuy_product
+	</select>
+	
+	<!-- 获取一级分类总记录数 -->
+	<select id="getProductRowCount" resultType="Integer">
+		SELECT COUNT(1) FROM easybuy_product WHERE categoryLevel1=#{categoryLevel1} AND isdelete=0
+	</select>
+	
+	<!-- 获取二级分类总记录数 -->
+	<select id="getProductRowCount2" resultType="Integer">
+		SELECT COUNT(1) FROM easybuy_product WHERE categoryLevel2=#{categoryLevel2} AND isdelete=0
+	</select>
+	
+	<!-- 获取三级分类总记录数 -->
+		<select id="getProductRowCount3" resultType="Integer">
+		SELECT COUNT(1) FROM easybuy_product WHERE categoryLevel3=#{categoryLevel3}  AND isdelete=0
+		</select>
+		
+	<!-- 根据id获取商品信息 -->
+	<select id="getById" resultType="EasybuyProduct">
+	SELECT id,name,description,price,stock,categoryLevel1,categoryLevel2,categoryLevel3,fileName,isDelete FROM easybuy_product WHERE id=#{id} AND isdelete=0
+	</select>
+	
+	<!-- 获取一级分类所有商品信息！ -->
+	<select id="getEasybuyProductListByCategoryId" resultType="EasybuyProduct">
+	SELECT `id`,`name`,`description`,`price`,`stock`,`categoryLevel1`,`categoryLevel2`,`categoryLevel3`,`fileName`,`isDelete` FROM easybuy_product WHERE categoryLevel1=#{categoryLevel1}  AND isdelete=0 
+	</select>
+	
+	<!-- 获取二级分类所有商品信息 ！-->
+	<select id="getEasybuyProductListByCategoryId2" resultType="EasybuyProduct">
+	SELECT id,name,description,price,stock,categoryLevel1,categoryLevel2,categoryLevel3,fileName,isDelete FROM easybuy_product WHERE categoryLevel2=#{categoryLevel2}  AND isdelete=0 
+	</select>
+	
+	<!-- 获取三级分类所有商品信息！ -->
+	<select id="getEasybuyProductListByCategoryId3" resultType="EasybuyProduct">
+		SELECT id,name,description,price,stock,categoryLevel1,categoryLevel2,categoryLevel3,fileName,isDelete FROM easybuy_product WHERE categoryLevel3=#{categoryLevel3} AND isdelete=0
+	</select>
+	<!-- 商品管理 -->
+	<select id="findEasybuyProductAll" resultType="EasybuyProduct">
+	SELECT id,name,description,price,stock,categoryLevel1,categoryLevel2,categoryLevel3,fileName,isDelete FROM easybuy_product where isDelete=0 limit #{currentPage},#{rowPerPage}
+	</select>
+	
+	<!-- 获取总记录数！ -->
+	<select id="findTotalCount" resultType="int">
+	SELECT count(1) FROM easybuy_product WHERE isDelete=0
+	</select>
+	
+	<!-- 根据ID删除指定商品信息 -->
+	<update id="deleteEasybuyProductById">
+	UPDATE easybuy_product SET isDelete = 1 WHERE id = #{id}
+	</update>
+	
+	<!-- 根据Id查询对应的商品信息！ -->
+	<select id="findEasybuyProductById" resultType="EasybuyProduct">
+	SELECT `id`,`name`,`description`,`price`,`stock`,`categoryLevel1`,`categoryLevel2`,`categoryLevel3`,`fileName`,`isDelete` FROM easybuy_product WHERE id =#{id}
+	</select>
+	
+	<!-- 模糊查询 -->
+	<select id="getEasybuyProductListByCategoryName" resultType="EasybuyProduct">
+	SELECT id,name,description,price,stock,categoryLevel1,categoryLevel2,categoryLevel3,fileName,isDelete FROM easybuy_product WHERE `name` LIKE CONCAT('%',#{name},'%') AND isdelete=0
+	</select>
+	
+	<!-- 区间查询 -->
+	<select id="getEasybuyProductListByPrice" resultType="EasybuyProduct">
+	<if test="price1&lt;=price2">
+		SELECT * FROM easybuy_product WHERE price&gt;=#{price1} and price&lt;=#{price2}
+	</if>
+	<if test="price1&gt;=price2">
+		SELECT * FROM easybuy_product WHERE price&lt;=#{price1} and price&gt;=#{price2}
+	</if>	
+	</select>
+	
+	<!-- 区间查询总记录数 -->
+	<select id="getProductRowCount4" resultType="int">
+	<if test="price1&lt;=price2">
+		SELECT COUNT(1) FROM easybuy_product WHERE price&gt;=#{price1} and price&lt;=#{price2}
+	</if>
+	<if test="price1&gt;=price2">
+		SELECT COUNT(1) FROM easybuy_product WHERE price&lt;=#{price1} and price&gt;=#{price2}
+	</if>	
+	</select>
+	
+	<!-- 修改商品信息 -->
+	<update id="updateByProductId">
+	UPDATE easybuy_product SET name=#{name},description=#{description},price=#{price},stock=#{stock},categoryLevel1=#{categoryLevel1},categoryLevel2=#{categoryLevel2},categoryLevel3=#{categoryLevel3},fileName=#{fileName} WHERE id=#{id}
+	</update>
+	
+	<!-- 获取模糊查询继续数 -->
+	<select id="getProductRowCountByName" resultType="int">
+		SELECT COUNT(1) FROM easybuy_product WHERE `name` LIKE CONCAT('%',#{name},'%') AND isdelete=0
+	</select>
+	
+	<!-- 修改商品库存信息！ -->
+	<update id="updateStock">
+		update easybuy_product set stock=stock-#{stock} where id=#{id}  AND isdelete=0
+	</update>
+	
+	<!-- 查询用户收藏列表！ -->
+	<select id="getEasybuyProductListByUser" resultType="EasybuyProduct">
+		 SELECT * FROM easybuy_product WHERE id=#{id} AND isdelete=0
+	</select>
+	<!-- 查询订单表 -->
+	<select id="getEasybuyProductListByOrder" resultType="EasybuyProduct">
+		 SELECT id,name,description,price,stock,categoryLevel1,categoryLevel2,categoryLevel3,fileName,isDelete FROM easybuy_product WHERE id=#{id}  AND isdelete=0
+	</select>
+	<!-- 商品上架 -->
+		<insert id="insertEasybuyProduct">
+			INSERT INTO easybuy_product(categoryLevel1,categoryLevel2,categoryLevel3,name,fileName,price,stock,description,isDelete)VALUES (#{categoryLevel1},#{categoryLevel2},#{categoryLevel3},#{name},#{fileName},#{price},#{stock},#{description},0)
+		</insert>
+	<!-- 商品修改1 -->
+		<update id="update1">
+			UPDATE easybuy_product SET categoryLevel1 = #{categoryLevel1},categoryLevel2 = #{categoryLevel2},categoryLevel3 = #{categoryLevel3},name = #{name},price=#{price},stock =#{stock} WHERE id=#{id}
+		</update>
+	<!-- 商品修改2 -->
+		<update id="update2">
+			UPDATE easybuy_product SET categoryLevel1 = #{categoryLevel1},categoryLevel2 = #{categoryLevel2},categoryLevel3 = #{categoryLevel3},name = #{name},fileName=#{fileName},price=#{price},stock =#{stock} WHERE id=#{id}
+		</update>
+</mapper>
